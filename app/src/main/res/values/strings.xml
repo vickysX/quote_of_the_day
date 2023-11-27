@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Quote of the Day</string>
+
+    <string name="today_tab">Here you find an amazing inspirational quote for today</string>
+    <string name="past_tab">Here you find your favorite inspirational quotes</string>
+
+    <string name="today_label">Today Quote</string>
+    <string name="favorites_label">Favorites</string>
+
+    <string name="modal_sheet_title">Save quote to favorites</string>
+    <string name="notes_label">Notes</string>
+    <string name="notes_placeholder">Write your thoughts</string>
+
+    <string name="take_photo_description">Click on this icon to take a photo</string>
+    <string name="pick_photo_description">Click on this icon to pick a photo</string>
+
+    <string name="cancel_button">Cancel</string>
+    <string name="save_button">Save</string>
+
+    <string name="delete_fav">Delete</string>
+    <string name="review_fav">Review</string>
+
+    <string name="notification_channel_name">Here\'s your daily quote</string>
+
+    <string name="error_message">Something went wrong</string>
+</resources>
