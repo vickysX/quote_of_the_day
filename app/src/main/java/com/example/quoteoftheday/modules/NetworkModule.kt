@@ -11,7 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.Cache
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import java.io.File
@@ -48,7 +48,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl("https://zenquotes.io/api")
             .addConverterFactory(
-                Json.asConverterFactory(MediaType.parse("application/json")!!)
+                Json.asConverterFactory("application/json".toMediaTypeOrNull()!!)
             )
             .client(okHttpClient)
             .build()
