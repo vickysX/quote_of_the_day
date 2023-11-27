@@ -20,6 +20,14 @@
     <string name="delete_fav">Delete</string>
     <string name="review_fav">Review</string>
 
+    <string name="today">Today</string>
+    <string name="this_week">This week</string>
+    <string name="last_month">Last month</string>
+    <string name="one_month">1 month ago</string>
+    <string name="last_semester">Last 6 months</string>
+    <string name="one_year">1 year ago</string>
+    <string name="years_ago">More than 1 year ago</string>
+
     <string name="notification_channel_name">Here\'s your daily quote</string>
 
     <string name="error_message">Something went wrong</string>
