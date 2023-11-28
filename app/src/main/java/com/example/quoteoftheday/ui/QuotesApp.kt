@@ -47,7 +47,6 @@ fun QuotesApp(
             permissionState.launchPermissionRequest()
         }
     }
-
     val uiState = viewModel.uiState.collectAsState()
     val currentTab = uiState.value.currentTab
     Scaffold(
@@ -74,6 +73,7 @@ fun QuotesApp(
 
             else -> FavoritesScreen(
                 modifier = Modifier.padding(it),
+                onGoingBack = {viewModel.setTab(QuotesTabs.Today)}
             )
         }
     }

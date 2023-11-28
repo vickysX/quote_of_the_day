@@ -1,5 +1,6 @@
 package com.example.quoteoftheday.ui.favoritesscreen
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quoteoftheday.data.FavoriteQuotesRepository
@@ -38,15 +39,25 @@ class FavoritesViewModel @Inject constructor(
         grouped = favorites.value!!.groupBy {it.timestamp}
     }
 
-    fun deleteFavQuote(quote: FavoriteQuote) {
+    fun deleteFavQuote(quote: String, note: String, imageUri: Uri) {
         viewModelScope.launch {
-            favoriteQuotesRepository.deleteQuote(quote)
+            val favQuote = FavoriteQuote(
+                quote = quote,
+                note = note,
+                photoUri = imageUri
+            )
+            favoriteQuotesRepository.deleteQuote(favQuote)
         }
     }
 
-    fun updateFavQuote(quote: FavoriteQuote) {
+    fun updateFavQuote(quote: String, note: String, imageUri: Uri) {
         viewModelScope.launch {
-            favoriteQuotesRepository.updateQuote(quote)
+            val favQuote = FavoriteQuote(
+                quote = quote,
+                note = note,
+                photoUri = imageUri
+            )
+            favoriteQuotesRepository.updateQuote(favQuote)
         }
     }
 

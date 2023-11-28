@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Quote of the Day</string>
+    <string name="favorites_screen">My favorite quotes</string>
 
     <string name="today_tab">Here you find an amazing inspirational quote for today</string>
     <string name="past_tab">Here you find your favorite inspirational quotes</string>
