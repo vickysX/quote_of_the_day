@@ -1,5 +1,6 @@
 package com.example.quoteoftheday.data
 
+import android.net.Uri
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import java.time.LocalDateTime
@@ -20,4 +21,13 @@ class Converters {
         return LocalDateTime.parse(timestamp, formatter)
     }
 
+    @TypeConverter
+    fun uriToString(uri: Uri) : String {
+        return uri.toString()
+    }
+
+    @TypeConverter
+    fun stringToUri(uriString: String) : Uri {
+        return Uri.parse(uriString) ?: Uri.EMPTY
+    }
 }
