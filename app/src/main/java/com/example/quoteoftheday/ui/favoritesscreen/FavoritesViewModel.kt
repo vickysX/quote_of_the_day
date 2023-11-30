@@ -44,7 +44,8 @@ class FavoritesViewModel @Inject constructor(
             val favQuote = FavoriteQuote(
                 quote = quote,
                 note = note,
-                photoUri = imageUri
+                photoUri = imageUri,
+                author = ""
             )
             favoriteQuotesRepository.deleteQuote(favQuote)
         }
@@ -55,7 +56,8 @@ class FavoritesViewModel @Inject constructor(
             val favQuote = FavoriteQuote(
                 quote = quote,
                 note = note,
-                photoUri = imageUri
+                photoUri = imageUri,
+                author = ""
             )
             favoriteQuotesRepository.updateQuote(favQuote)
         }
