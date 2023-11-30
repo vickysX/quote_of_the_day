@@ -56,7 +56,7 @@ android {
 dependencies {
     val lifecycleVer = "2.6.2"
     val composeBom = "2023.10.01"
-    val room = "2.6.0"
+    val room = "2.6.1"
     val hilt = "2.48.1"
     val androidxHilt = "1.1.0"
 
@@ -83,12 +83,15 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVer")
 
     // Work Manager
-    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     // Room
     implementation("androidx.room:room-runtime:$room")
     implementation("androidx.room:room-ktx:$room")
     ksp("androidx.room:room-compiler:$room")
+
+    // Preferences DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:$hilt")

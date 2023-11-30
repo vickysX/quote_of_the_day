@@ -12,6 +12,8 @@ data class FavoriteQuote(
 
     val quote: String,
 
+    val author: String,
+
     var note: String = "",
 
     var photoUri: Uri = Uri.EMPTY,

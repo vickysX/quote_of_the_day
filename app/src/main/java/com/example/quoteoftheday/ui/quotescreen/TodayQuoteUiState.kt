@@ -6,7 +6,8 @@ import com.example.quoteoftheday.model.TodayQuote
 data class TodayQuoteUiState(
     val quote: String,
     val author: String,
-    @DrawableRes var iconRes: Int = 0
+    var isAFavorite: Boolean = false,
+    @DrawableRes var imageRes: Int = 0
 )
 
 fun TodayQuote.toUiState() : TodayQuoteUiState {

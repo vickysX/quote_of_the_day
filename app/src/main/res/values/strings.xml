@@ -7,13 +7,16 @@
 
     <string name="today_label">Today Quote</string>
     <string name="favorites_label">Favorites</string>
+    
+    <string name="share_button">Tap this icon to share the quote</string>
+    <string name="fav_button">Tap this icon to save the quote to favorites</string>
 
     <string name="modal_sheet_title">Save quote to favorites</string>
     <string name="notes_label">Notes</string>
     <string name="notes_placeholder">Write your thoughts</string>
 
-    <string name="take_photo_description">Click on this icon to take a photo</string>
-    <string name="pick_photo_description">Click on this icon to pick a photo</string>
+    <string name="take_photo_description">Tap this icon to take a photo</string>
+    <string name="pick_photo_description">Tap this icon to pick a photo</string>
 
     <string name="cancel_button">Cancel</string>
     <string name="save_button">Save</string>

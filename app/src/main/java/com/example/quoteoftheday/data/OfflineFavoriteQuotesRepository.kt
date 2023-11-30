@@ -24,4 +24,11 @@ class OfflineFavoriteQuotesRepository @Inject constructor(
         return quotesDao.getFavoriteQuotes()
     }
 
+    override fun getFavoriteQuoteByTextAndAuthor(
+        text: String,
+        author: String
+    ): Flow<FavoriteQuote?> {
+        return quotesDao.getQuoteByTextAndAuthor(text, author)
+    }
+
 }

@@ -21,4 +21,7 @@ interface QuotesDao {
 
     @Query("SELECT * FROM favorite_quotes")
     fun getFavoriteQuotes() : Flow<List<FavoriteQuote>?>
+
+    @Query("SELECT * FROM favorite_quotes WHERE quote = :text AND author = :author")
+    fun getQuoteByTextAndAuthor(text: String, author: String) : Flow<FavoriteQuote?>
 }

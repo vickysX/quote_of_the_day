@@ -8,4 +8,5 @@ interface FavoriteQuotesRepository {
     suspend fun deleteQuote(quote: FavoriteQuote)
     suspend fun updateQuote(quote: FavoriteQuote)
     fun getFavoriteQuotes() : Flow<List<FavoriteQuote>?>
+    fun getFavoriteQuoteByTextAndAuthor(text: String, author: String) : Flow<FavoriteQuote?>
 }
