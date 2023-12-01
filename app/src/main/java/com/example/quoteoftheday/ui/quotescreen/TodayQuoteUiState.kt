@@ -7,7 +7,7 @@ data class TodayQuoteUiState(
     val quote: String,
     val author: String,
     var isAFavorite: Boolean = false,
-    @DrawableRes var imageRes: Int = 0
+    @DrawableRes var imageRes: Int = PhotoSource.photos.random()
 )
 
 fun TodayQuote.toUiState() : TodayQuoteUiState {

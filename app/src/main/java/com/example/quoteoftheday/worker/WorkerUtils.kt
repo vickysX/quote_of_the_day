@@ -3,12 +3,15 @@ package com.example.quoteoftheday.worker
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.quoteoftheday.CHANNEL_ID
+import com.example.quoteoftheday.MainActivity
 import com.example.quoteoftheday.NOTIFICATION_ID
 import com.example.quoteoftheday.R
 
@@ -24,10 +27,21 @@ fun makeNotification(quote: String, context: Context) {
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     notificationManager.createNotificationChannel(channel)
 
+    val intent = Intent(context, MainActivity::class.java)
+
+    val pendingIntent = PendingIntent.getActivity(
+        context,
+        0,
+        intent,
+        PendingIntent.FLAG_IMMUTABLE
+    )
+
     val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
         .setSmallIcon(R.drawable.water_lux)
         .setContentTitle(name)
         .setContentText(quote)
+        .setContentIntent(pendingIntent)
+        .setAutoCancel(true)
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
     // completely useless

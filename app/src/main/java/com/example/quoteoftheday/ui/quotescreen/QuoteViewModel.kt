@@ -9,10 +9,8 @@ import com.example.quoteoftheday.data.WorkersRepository
 import com.example.quoteoftheday.model.FavoriteQuote
 import com.example.quoteoftheday.model.TodayQuote
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -61,6 +59,27 @@ class QuoteViewModel @Inject constructor(
                 photoUri = photoUri
             )
             favoriteQuotesRepository.saveQuote(favoriteQuote)
+        }
+    }
+
+    fun removeQuoteFromFavorites(
+        quote: String,
+        author: String = "",
+    ) {
+        viewModelScope.launch {
+            val quoteToRemove =
+                favoriteQuotesRepository
+                    .getFavoriteQuoteByTextAndAuthor(quote, author)
+                    .firstOrNull()
+            if (quoteToRemove != null) {
+                favoriteQuotesRepository.deleteQuote(quoteToRemove)
+            }
+        }
+    }
+
+    fun setUserPreference(isFavorite: Boolean) {
+        viewModelScope.launch {
+            preferencesRepository.saveFavoritePreference(isFavorite)
         }
     }
 

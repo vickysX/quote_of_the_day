@@ -1,5 +1,7 @@
 package com.example.quoteoftheday.ui.quotescreen
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +27,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -46,6 +49,7 @@ fun QuoteScreen(
     }
     val quoteUiState = viewModel.todayQuoteUiState.collectAsState()
     val sheetState = rememberModalBottomSheetState()
+    val context = LocalContext.current
     //val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
         /*snackbarHost = {
@@ -53,6 +57,7 @@ fun QuoteScreen(
         }*/
     ) { padding ->
         Box(modifier = Modifier
+            .fillMaxSize()
             .padding(padding)) {
             // Wallpaper
             Image(
@@ -70,7 +75,13 @@ fun QuoteScreen(
                 Text(text = quoteUiState.value.author)
                 // Share and Save buttons
                 Row {
-                    IconButton(onClick = { /*TODO: Add functionality for sharing*/ }) {
+                    IconButton(onClick = {
+                        shareQuote(
+                            quote = quoteUiState.value.quote,
+                            author = quoteUiState.value.author,
+                            context = context
+                        )
+                    }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(
                                 id = R.drawable.baseline_share_24
@@ -80,8 +91,33 @@ fun QuoteScreen(
                             )
                         )
                     }
-                    IconButton(onClick = toggleSheetVisibility) {
-                        // TODO: Add icon based on preference
+                    IconButton(onClick = {
+                        if (!quoteUiState.value.isAFavorite) {
+                            toggleSheetVisibility()
+                        } else {
+                            viewModel.setUserPreference(false)
+                            viewModel.removeQuoteFromFavorites(
+                                quote = quoteUiState.value.quote,
+                                author = quoteUiState.value.author
+                            )
+                        }
+                        
+                    }) {
+                        if (!quoteUiState.value.isAFavorite) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(
+                                    id = R.drawable.ic_favorite_outlined
+                                ),
+                                contentDescription = null
+                            )
+                        } else {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(
+                                    id = R.drawable.ic_favorite_filled
+                                ),
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
                 if (isSheetVisible) {
@@ -102,4 +138,16 @@ fun QuoteScreen(
             }
         }
     }
+}
+
+private fun shareQuote(quote: String, author: String, context: Context) {
+    val intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(
+            Intent.EXTRA_TEXT,
+            "\"$quote\"\n- $author"
+        )
+    }
+    val shareIntent = Intent.createChooser(intent, null)
+    context.startActivity(shareIntent)
 }
