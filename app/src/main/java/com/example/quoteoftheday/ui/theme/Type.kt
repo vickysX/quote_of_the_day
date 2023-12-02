@@ -2,10 +2,17 @@ package com.example.quoteoftheday.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.quoteoftheday.R
 
+val greatVibesFontFamily = FontFamily(
+    listOf(
+        Font(R.font.greatvibes_regular)
+    )
+)
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(

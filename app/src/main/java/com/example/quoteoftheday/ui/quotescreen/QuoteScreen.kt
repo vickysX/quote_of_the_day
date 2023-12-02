@@ -29,7 +29,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.palette.graphics.Palette
@@ -58,7 +57,6 @@ fun QuoteScreen(
     )
     val palette = Palette.from(bitmap).generate()
     val vibrant = palette.vibrantSwatch
-    //val snackbarHostState = remember { SnackbarHostState() }
     Box(modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()) {
