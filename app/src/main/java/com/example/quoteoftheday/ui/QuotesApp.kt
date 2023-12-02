@@ -37,6 +37,7 @@ fun QuotesApp(
     modifier: Modifier = Modifier,
     viewModel: QuoteOfTheDayViewModel = viewModel()
 ) {
+    // TODO: Consider changing method for asking permission
     // TODO: This is basic permission handling
     // try to study better solutions
     val permissionState = rememberPermissionState(
@@ -50,7 +51,7 @@ fun QuotesApp(
     val uiState = viewModel.uiState.collectAsState()
     val currentTab = uiState.value.currentTab
     Scaffold(
-        topBar = {
+        /*topBar = {
             TopAppBar(
                 title = {
                     Text(
@@ -58,7 +59,7 @@ fun QuotesApp(
                     )
                 },
             )
-        },
+        },*/
         bottomBar = {
             QuotesNavBar(
                 onTabPressed = { viewModel.setTab(it) },

@@ -74,6 +74,9 @@ dependencies {
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.compose.runtime:runtime-livedata")
 
+    // Palette
+    implementation("androidx.palette:palette-ktx:1.0.0")
+
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVer")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVer")
