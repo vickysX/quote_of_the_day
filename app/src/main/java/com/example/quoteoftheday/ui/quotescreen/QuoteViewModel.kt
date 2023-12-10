@@ -3,6 +3,7 @@ package com.example.quoteoftheday.ui.quotescreen
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quoteoftheday.TAG_OUTPUT
 import com.example.quoteoftheday.data.FavoriteQuotesRepository
 import com.example.quoteoftheday.data.UserPreferencesRepository
 import com.example.quoteoftheday.data.WorkersRepository
@@ -11,8 +12,8 @@ import com.example.quoteoftheday.model.TodayQuote
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,26 +25,48 @@ class QuoteViewModel @Inject constructor(
     private val preferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
 
-    private lateinit var todayQuote: TodayQuote
-    private var quoteUiState = todayQuote.toUiState()
-    /*private var _todayQuoteUiState = MutableStateFlow(todayQuote.toUiState())
-    val todayQuoteUiState : StateFlow<TodayQuoteUiState>
-        get() = _todayQuoteUiState.asStateFlow()*/
+    private val userPreferencesFlow = preferencesRepository.isQuoteFavorite
 
-    val todayQuoteUiState: StateFlow<TodayQuoteUiState> =
-        preferencesRepository.isQuoteFavorite
-        .map {
-            TodayQuoteUiState(
-                quote = quoteUiState.quote,
-                author = quoteUiState.author,
-                isAFavorite = it,
-            )
+    /*val todayQuoteUiState: StateFlow<TodayQuoteUiState> =
+        workersRepository.outputWorkInfo.map {workInfo ->
+            val quote = workInfo.outputData.keyValueMap[TAG_OUTPUT] as TodayQuote
+            when {
+                workInfo.state.isFinished && quote != null -> {
+                    TodayQuoteUiState.FetchedQuoteComplete(
+                        quote = quote.quote,
+                        author = quote.author,
+                    )
+                }
+                else -> TodayQuoteUiState.Loading
+            }
         }
-        .stateIn(
-            initialValue = quoteUiState,
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000L)
-        )
+            .stateIn(
+                scope = viewModelScope,
+                initialValue = TodayQuoteUiState.Loading,
+                started = SharingStarted.WhileSubscribed(5_000L)
+            )*/
+    val todayQuoteUiState: StateFlow<TodayQuoteUiState> =
+        workersRepository.outputWorkInfo
+            .combine(userPreferencesFlow) { workInfo, isFavorite ->
+                val quote = workInfo.outputData.keyValueMap[TAG_OUTPUT] as TodayQuote
+                when {
+                    workInfo.state.isFinished && quote != null -> {
+                        TodayQuoteUiState.FetchedQuoteComplete(
+                            quote = quote.quote,
+                            author = quote.author,
+                            isAFavorite = isFavorite
+                        )
+                    }
+                    else -> TodayQuoteUiState.Loading
+                }
+        }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000L),
+                initialValue = TodayQuoteUiState.Loading
+            )
+
+
 
     fun addQuoteToFavorites(
         quote: String,
@@ -85,8 +108,7 @@ class QuoteViewModel @Inject constructor(
 
     private fun getTodayQuote() {
         viewModelScope.launch {
-            // TODO: Handle exceptions
-            todayQuote = workersRepository.fetchAndProvideQuote()
+            workersRepository.fetchAndProvideQuote()
         }
     }
 

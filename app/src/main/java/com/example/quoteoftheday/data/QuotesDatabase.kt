@@ -23,6 +23,7 @@ abstract class QuotesDatabase : RoomDatabase() {
                     context,
                     QuotesDatabase::class.java,
                     "quotes_database")
+                    .addTypeConverter(Converters())
                     .build()
                     .also { instance = it }
             }

@@ -46,7 +46,7 @@ object NetworkModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://zenquotes.io/api")
+            .baseUrl("https://zenquotes.io/api/")
             .addConverterFactory(
                 Json.asConverterFactory("application/json".toMediaTypeOrNull()!!)
             )

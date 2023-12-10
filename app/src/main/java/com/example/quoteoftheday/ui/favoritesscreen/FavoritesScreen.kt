@@ -17,11 +17,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.quoteoftheday.R
 import com.example.quoteoftheday.model.FavoriteQuote
 import java.time.Duration
@@ -35,7 +35,7 @@ fun FavoritesScreen(
     onGoingBack: () -> Unit,
     viewModel: FavoritesViewModel = hiltViewModel()
 ) {
-    val groupedFavorites = viewModel.groupedFavorites.collectAsState()
+    val groupedFavorites = viewModel.groupedFavorites.collectAsStateWithLifecycle()
     BackHandler {
         onGoingBack()
     }
